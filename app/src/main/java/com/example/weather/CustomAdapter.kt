@@ -6,34 +6,41 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.card_details.view.*
 import org.w3c.dom.Text
 
-class CustomAdapter (val userList: ArrayList<User>): RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (Weather) -> Unit): RecyclerView.Adapter<CustomAdapter.ViewHolder>(){ //Extend the Adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.card_weather, parent, false)
         return ViewHolder(v)
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return weatherList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val user: User = userList[position]
+        val weather: Weather = weatherList[position]
 
-        holder?.textViewName.text = user.name //from data source we are putting the date to the place holder
-        holder?.textViewAddress.text = user.address
-        holder?.imageView_weatherCard.setImageResource(R.mipmap.partly_cloudy)
-
+        holder?.date.text = weather.date //from data source we are putting the date to the place holder
+        holder?.day.text = weather.day
+        holder?.temperature.text = weather.temperature
+        holder?.foreCastImage.setImageResource(weather.getForecastImageSource())
+        holder?.bind(weatherList[position], clickListener)
 
     }
 
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val textViewName = itemView.findViewById(R.id.textViewName) as TextView
-        val textViewAddress = itemView.findViewById(R.id.textViewAddress) as TextView
-        val imageView_weatherCard = itemView.findViewById(R.id.weatherCard_imageView) as ImageView
+    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){ //ViewHolder & Click Listener
+        val date = itemView.findViewById(R.id.date_cardTextView) as TextView
+        val day = itemView.findViewById(R.id.day_cardTextView) as TextView
+        val foreCastImage = itemView.findViewById(R.id.weatherCard_imageView) as ImageView
+        val temperature = itemView.findViewById(R.id.temperature__cardTextView) as TextView
 
+        fun bind(weather: Weather, clickListener: (Weather) -> Unit){
+            //TODO: Implement new fragment
+            itemView.setOnClickListener({clickListener(weather)})  //Assign Click Listener to the View Holder
+        }
 
     }
 }

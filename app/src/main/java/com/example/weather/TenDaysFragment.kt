@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_ten_days.*
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.lang.reflect.Constructor
@@ -22,33 +23,36 @@ class TenDaysFragment: Fragment(){
         savedInstanceState: Bundle?
     ):View? {
         var temp = inflater.inflate(R.layout.fragment_ten_days, container, false)!!
-
-//        var weatherList = listOf<String>("cat", "dog", "cow")
-//        val listViewAdapter = ArrayAdapter<String>(context!!, android.R.layout.simple_list_item_1, weatherList)
-//        weather_list_view.adapter = listViewAdapter
-
-
         return temp
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        var weatherList = listOf<String>("weather_sunny", "weather_cloudy", "weather_rainy")
-//        val listViewAdapter = ArrayAdapter<String>(view.context, android.R.layout.simple_list_item_1, weatherList)
-//
-//        weather_list_view.adapter = listViewAdapter
-
         weather_recycler_view.layoutManager = LinearLayoutManager(context)
-        val users = ArrayList<User>()
-        users.add(User("a", "bd"))
-        users.add(User("b", "bd"))
-        users.add(User("c", "bd"))
-        users.add(User("d", "bd"))
 
-        weather_recycler_view.adapter = CustomAdapter(users)
+        //load data from api/data-source
+        val weatherList = loadDataFromApi()
+        weather_recycler_view.adapter = CustomAdapter(weatherList, {weather: Weather -> weatherItemClicked(weather)})  //register click handler with the adapter
 
+
+    }
+    fun loadDataFromApi():ArrayList<Weather> {
+        //api format:  xyz.com/date/
+        //return  json like "{ "7/10/2019" : 23}"
+        val weatherList = ArrayList<Weather>()
+        weatherList.add(Weather("January 7", "sunday", "23", ForeCast.SUNNY))
+        weatherList.add(Weather("January 8", "monday", "21", ForeCast.RAIN_HEAVY))
+        weatherList.add(Weather("January 9", "tuesday", "29", ForeCast.PARTLY_CLOUD))
+        weatherList.add(Weather("January 10", "wednesday", "22", ForeCast.SUNNY))
+        weatherList.add(Weather("January 11", "thursday", "25", ForeCast.RAIN_HEAVY))
+
+        return weatherList
+    }
+
+    private fun weatherItemClicked(weather: Weather) {
+        val cat = listOf<String>("cat")
+        Toast.makeText(context, "Clicked: ${weather.day}", Toast.LENGTH_LONG).show()
     }
 
 
-
 }
+
