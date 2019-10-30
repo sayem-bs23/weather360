@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_details.view.*
 import org.w3c.dom.Text
 
-class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (Weather) -> Unit): RecyclerView.Adapter<CustomAdapter.ViewHolder>(){ //Extend the Adapter
+class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (Weather, Int) -> Unit): RecyclerView.Adapter<CustomAdapter.ViewHolder>(){ //Extend the Adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.card_weather, parent, false)
         return ViewHolder(v)
@@ -24,9 +24,9 @@ class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (W
 
         holder?.date.text = weather.date //from data source we are putting the date to the place holder
         holder?.day.text = weather.day
-        holder?.temperature.text = weather.temperature
+        holder?.temperature.text = weather.temperature + "°"
         holder?.foreCastImage.setImageResource(weather.getForecastImageSource())
-        holder?.bind(weatherList[position], clickListener)
+        holder?.bind(weatherList[position], clickListener, position)
 
     }
 
@@ -37,9 +37,9 @@ class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (W
         val foreCastImage = itemView.findViewById(R.id.weatherCard_imageView) as ImageView
         val temperature = itemView.findViewById(R.id.temperature__cardTextView) as TextView
 
-        fun bind(weather: Weather, clickListener: (Weather) -> Unit){
+        fun bind(weather: Weather, clickListener: (Weather, Int) -> Unit, position: Int){
             //TODO: Implement new fragment
-            itemView.setOnClickListener({clickListener(weather)})  //Assign Click Listener to the View Holder
+            itemView.setOnClickListener({clickListener(weather,position)})  //Assign Click Listener to the View Holder
         }
 
     }
