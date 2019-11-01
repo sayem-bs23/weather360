@@ -17,17 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="cat"
-            android:id="@+id/msg"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="dog:"
-            android:id="@+id/msg2"/>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,7 +33,7 @@
             app:tabBackground="@color/colorPrimaryDark"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabTextColor="@android:color/white" />
+            app:tabTextColor="@android:color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

@@ -27,7 +27,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import androidx.core.view.get
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,9 +45,10 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(TenDaysFragment(), "Ten days")
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
-        weatherData = findViewById(R.id.msg)
 
-        getCurrentData()
+//        weatherData = findViewById(R.id.msg)
+
+//        getCurrentData()
 
     }
 
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         val AppId= "bb4dd20e432ae754a84c5b91ee475854"
         val lat = "23"
         val lon = "90"
+        val units = "metric"
     }
 
     internal fun getCurrentData() {
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
         val retrofit = RetrofitSingleton.instance
-        val call = retrofit.getCurrentWeatherData(lat, lon, AppId)
+        val call = retrofit.getCurrentWeatherData(lat, lon, AppId, units)
 
         call.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {

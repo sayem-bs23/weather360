@@ -26,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
 
 
 
+
 //        val adapter = ViewPagerAdapter(supportFragmentManager)
 //        adapter.addFragment(TodayFragment(), "Today")
 //        viewPager_cardDetail.adapter = adapter

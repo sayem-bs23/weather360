@@ -32,6 +32,23 @@ object RetrofitSingleton{
         retrofit.create(WeatherService::class.java)
 
     }
+
+    val forecastInstance: ForecastService by lazy{
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor(logging)
+
+        var retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
+
+        retrofit.create(ForecastService::class.java)
+
+    }
 }
 
 
