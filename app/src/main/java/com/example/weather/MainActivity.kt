@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        RealTimeUpdate()
+//        RealTimeUpdate()
 
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
@@ -45,10 +45,6 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(TenDaysFragment(), "Ten days")
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
-
-//        weatherData = findViewById(R.id.msg)
-
-//        getCurrentData()
 
     }
 

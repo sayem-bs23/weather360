@@ -66,6 +66,7 @@ class TodayFragment: Fragment(){
                         day,
                         temp,
                         ForeCast.valueOf(forecast))
+                    //onSuccess(list0
 
                     temperature.text = obj.temperature
                     weatherSatus.text = obj.foreCast.forecastValue.toString()

@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.card_details.view.*
 import org.w3c.dom.Text
 
 class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (Weather, Int) -> Unit): RecyclerView.Adapter<CustomAdapter.ViewHolder>(){ //Extend the Adapter
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.card_weather, parent, false)
         return ViewHolder(v)
@@ -42,5 +44,11 @@ class CustomAdapter (val weatherList: ArrayList<Weather>,  val clickListener: (W
             itemView.setOnClickListener({clickListener(weather,position)})  //Assign Click Listener to the View Holder
         }
 
+    }
+
+    fun setData(wList: ArrayList<Weather>){
+        weatherList.clear()
+        weatherList.addAll((wList))
+        notifyDataSetChanged()
     }
 }

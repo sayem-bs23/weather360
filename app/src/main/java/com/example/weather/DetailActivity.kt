@@ -13,7 +13,9 @@ class DetailActivity : AppCompatActivity() {
 
 
         val position = intent.extras?.get("position").toString().toInt()
-        val weatherList = loadDataFromApi()
+        val weatherList = PersistentData.weatherListUpdated
+
+//        val weatherList = loadDataFromApi()
         val weather = weatherList[position]
 
         temperature_cardDetail.text = weather.temperature
